@@ -59,6 +59,16 @@ public class DruidConfig {
         return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 
+/*
+    @Bean(name = "dynamicDataSource")
+    @Primary
+    public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource) {
+        Map<Object, Object> targetDataSources = new HashMap<>();
+        targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
+        targetDataSources.put(DataSourceType.SLAVE.name(), slaveDataSource);
+        return new DynamicDataSource(masterDataSource, targetDataSources);
+    }*/
+
     /**
      * 设置数据源
      *
@@ -71,7 +81,8 @@ public class DruidConfig {
             DataSource dataSource = SpringUtils.getBean(beanName);
             targetDataSources.put(sourceName, dataSource);
         } catch (Exception e) {
-            if("slaveDataSource".equals(sourceName)) {
+
+            if("slaveDataSource".equals(beanName)) {
                 return;
             }
             log.error("设置数据源失败 e={}", e);
