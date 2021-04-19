@@ -16,6 +16,8 @@ conan:
   captchaType: math
 # Spring Datasource Settings
 spring:
+  profiles:
+    active: test
   # 资源信息
   messages:
     # 国际化资源文件路径

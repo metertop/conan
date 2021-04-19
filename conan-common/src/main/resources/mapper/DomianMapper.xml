@@ -18,7 +18,7 @@
     </resultMap>
 
     <sql id="selectDomainVo">
-        select id, name, online, create_time, create_by, update_time, update_by, is_auth, sys_dept_id from bss_domain
+        select id, name, online, create_time, create_by, update_time, update_by, is_auth, sys_dept_id, es_source_id from bss_domain
     </sql>
 
     <select id="selectDomainList" parameterType="Domain" resultMap="DomainResult">
