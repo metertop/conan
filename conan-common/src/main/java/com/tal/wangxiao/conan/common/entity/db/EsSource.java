@@ -34,4 +34,11 @@ public class EsSource {
 
     @Column(name = "es_port")
     private Integer esPort;
+
+
+    @Column(name= "es_username")
+    private String esUserName;
+
+    @Column(name= "es_password")
+    private String esPassWord;
 }

@@ -396,7 +396,9 @@ public class RecordServiceImpl implements RecordService {
                     String esIp = esSource.get().getEsIp();
                     Integer esPort = esSource.get().getEsPort();
                     String beanName = esSource.get().getEsBeanName();
-                    return DynamicEsUtils.getRestHighLevelClient(beanName, esIp, esPort);
+                    String esUserName = esSource.get().getEsUserName().trim();
+                    String esPassWord = esSource.get().getEsPassWord().trim();
+                    return DynamicEsUtils.getRestHighLevelClient(beanName, esIp, esPort, esUserName, esPassWord);
                 }
             }
         }

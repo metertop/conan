@@ -2,7 +2,9 @@ package com.tal.wangxiao.conan.common.utils;
 
 import com.tal.wangxiao.conan.common.SpringContextHolder;
 import com.tal.wangxiao.conan.common.config.DynamicEsClientConfig;
+import com.tal.wangxiao.conan.config.core.utils.StringUtils;
 import com.tal.wangxiao.conan.utils.str.StringHandlerUtils;
+import com.tal.wangxiao.conan.utils.str.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -21,7 +23,7 @@ public class DynamicEsUtils {
     /**
      * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
      */
-    public static RestHighLevelClient getRestHighLevelClient(String restHighLevelClientBeanName, String host, Integer port) {
+    public static RestHighLevelClient getRestHighLevelClient(String restHighLevelClientBeanName, String host, Integer port, String esUser, String esPasswd) {
         DynamicEsClientConfig dynamicEsClient;
         try {
             Object objBean = SpringContextHolder.getBean(restHighLevelClientBeanName);
@@ -44,7 +46,10 @@ public class DynamicEsUtils {
             Object objBean = SpringContextHolder.getBean(restHighLevelClientBeanName);
             if (!StringHandlerUtils.isNull(objBean)) {
                 dynamicEsClient = (DynamicEsClientConfig) objBean;
-                return dynamicEsClient.getRestHighLevelClient(host, port);
+                if (StringUtils.isEmpty(esUser) && StringUtils.isEmpty(esPasswd)) {
+                    return dynamicEsClient.getRestHighLevelClient(host, port);
+                }
+                return dynamicEsClient.getRestHighLevelClient(host, port, esUser, esPasswd);
             }
         } catch (Exception e) {
             log.error("e= {}", e);

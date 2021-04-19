@@ -48,7 +48,10 @@ public class ElasticCommonService {
                     String esIp = esSource.get().getEsIp();
                     Integer esPort = esSource.get().getEsPort();
                     String beanName= esSource.get().getEsBeanName();
-                    return DynamicEsUtils.getRestHighLevelClient(beanName,esIp, esPort);
+                    String esUserName = esSource.get().getEsUserName().trim();
+                    String esPassWord = esSource.get().getEsPassWord().trim();
+
+                    return DynamicEsUtils.getRestHighLevelClient(beanName,esIp, esPort, esUserName, esPassWord);
                 }else{
                     log.error("该ES的配置esSourceId:{}无效，请检查esCondition是否配置成功",esConditionSetting.get().getEsSourceId());
                 }
